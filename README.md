@@ -21,5 +21,8 @@ Then
 
 to your _vimrc.
 
-Then, Ctrl-\ will load cs.chromium.org info into a Quickfix buffer in Vim so you
-can jump around.
+Then, Ctrl-\ will load cs.chromium.org info for the <cword> under the cursor
+into a Quickfix buffer in Vim so you can jump around to references to it.
+
+Note that cs still indexes only the Linux build, so you won't get references
+e.g. for Mac- or Windows-only code.
