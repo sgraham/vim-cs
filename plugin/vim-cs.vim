@@ -206,41 +206,6 @@ def getXrefsFor(signature):
                 xrefs.setdefault('references', []);
                 xrefs['references'].append(getRefForMatch(filename, match));
     return xrefs
-
-def logAndExit(msg):
-  print(msg);
-  sys.exit(2);
-
-if __name__ == "__main__":
-  parser = argparse.ArgumentParser(description='Searches Chromium Code Search for X-Refs.')
-  parser.add_argument('-p', '--path',
-                      help='The path to this file starting with src/')
-  parser.add_argument('-w', '--word',
-                      help='The word to search for in the file denoted by the path argument. You must also specify -p')
-  parser.add_argument('-s', '--signature',
-                      help='A signature provided from a previous search. No -p or -w arguments required.')
-  args = parser.parse_args()
-
-
-  signature = args.signature;
-  results = {}
-
-
-  if not signature:
-    if bool(args.path) ^ bool(args.word):
-      print("Both path and word must be supplied if one is supplied");
-      sys.exit(2);
-
-    signature = getSignatureFor(args.path, args.word);
-    results['signature'] = signature
-    if not signature:
-      logAndExit("Could not find signature for %s" % (args.word))
-
-  results['xrefs'] = getXrefsFor(signature);
-  results['callers'] = getCallGraphFor(signature);
-
-  print(json.dumps(results))
-
 endpython
 
 " End of chromium_code_search.py.
